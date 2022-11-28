@@ -1,24 +1,19 @@
-import propTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addFilter } from 'redux/filterSlice';
 import { FilterBox, FilterInput } from './ContactFilter.styled';
 import { FormLabel } from '../ContactForm/ContactForm.styled';
 
-export const ContactFilter = ({ filter, onFilter }) => {
+export const ContactFilter = () => {
+  const dispatch = useDispatch();
+  const onFilter = e => {
+    dispatch(addFilter(e.currentTarget.value));
+  };
   return (
     <FilterBox>
       <FormLabel htmlFor="filter">Find contacts by name</FormLabel>
       <div>
-        <FilterInput
-          type="text"
-          name="filter"
-          value={filter}
-          onChange={onFilter}
-        />
+        <FilterInput type="text" name="filter" onChange={onFilter} />
       </div>
     </FilterBox>
   );
-};
-
-ContactFilter.propTypes = {
-  onFilter: propTypes.func,
-  filter: propTypes.string,
 };
